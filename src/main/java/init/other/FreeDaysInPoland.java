@@ -1,8 +1,9 @@
 package init.other;
 
-import model.calendar.Month;
 import model.calendar.freedays.FreeDay;
 import model.calendar.freedays.FreeDaysManager;
+
+import java.time.Month;
 
 public class FreeDaysInPoland {
 

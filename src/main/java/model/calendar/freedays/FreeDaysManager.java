@@ -1,8 +1,8 @@
 package model.calendar.freedays;
 
 import com.google.common.base.Preconditions;
-import model.calendar.Month;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
