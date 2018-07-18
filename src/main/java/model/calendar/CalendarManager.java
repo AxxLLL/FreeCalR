@@ -1,6 +1,5 @@
 package model.calendar;
 
-import com.google.common.base.Preconditions;
 import model.calendar.day.Day;
 import model.calendar.day.DayType;
 import model.calendar.freedays.FreeDaysManager;
@@ -18,24 +17,6 @@ public class CalendarManager extends Calendar {
     public static CalendarManager of(FreeDaysManager manager) {
         LocalDate now = LocalDate.now();
         return new CalendarManager(manager, now.getMonth(), now.getYear());
-    }
-
-    public CalendarManager switchToNextYear() {
-        return new CalendarManager(getFreeDaysManager(), getMonth(), getYear() + 1);
-    }
-
-    public CalendarManager switchToPreviousYear() {
-        return new CalendarManager(getFreeDaysManager(), getMonth(), getYear() - 1);
-    }
-
-    public CalendarManager switchToNextMonth() throws IllegalStateException {
-        Preconditions.checkState(getMonth().getValue() + 1 <= 12, "Wartość miesiąca przekroczyła dopuszczalną wartość");
-        return new CalendarManager(getFreeDaysManager(), getMonth().plus(1), getYear());
-    }
-
-    public CalendarManager switchToPreviousMonth() {
-        Preconditions.checkState(getMonth().getValue() - 1 >= 1, "Wartość miesiąca przekroczyła dopuszczalną wartość");
-        return new CalendarManager(getFreeDaysManager(), getMonth().minus(1), getYear());
     }
 
     public DayOfWeek getStartingDayOfWeek() {
@@ -70,4 +51,3 @@ public class CalendarManager extends Calendar {
         super(manager, month, year);
     }
 }
-
