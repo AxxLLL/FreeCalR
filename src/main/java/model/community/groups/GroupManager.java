@@ -1,15 +1,16 @@
 package model.community.groups;
 
 import com.google.common.base.Preconditions;
-import init.Main;
 import model.community.CommunityListAbs;
+import model.community.users.UsersManager;
 
 public class GroupManager extends CommunityListAbs<Group> {
 
     public static final Group DEFAULT_GROUP = new Group("Brak", false);
+    private UsersManager usersManager;
 
-    public static GroupManager of() {
-        return new GroupManager();
+    public static GroupManager of(UsersManager usersManager) {
+        return new GroupManager(usersManager);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class GroupManager extends CommunityListAbs<Group> {
         Preconditions.checkState(group.isEditable(), "Nie można usunąć tej grupy z listy.");
 
         if(isExists(group)) {
-            Main.getUsersManager().getList().forEach(user -> {
+            usersManager.getList().forEach(user -> {
                if(user.getGroup() == group) {
                    user.setGroup(DEFAULT_GROUP);
                }
@@ -39,8 +40,10 @@ public class GroupManager extends CommunityListAbs<Group> {
         return sb.toString();
     }
 
-    private GroupManager() {
+    private GroupManager(UsersManager usersManager) {
         super();
+        Preconditions.checkNotNull(usersManager, "Menedżer użytkowników dla grupy musi zostać określony.");
+        this.usersManager = usersManager;
         add(DEFAULT_GROUP);
     }
 }

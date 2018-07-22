@@ -5,6 +5,7 @@
 target/
 classes/
 usersResources/
+zFileTest/
 
 # Ignore everything inside .idea except of code styles
 .idea/

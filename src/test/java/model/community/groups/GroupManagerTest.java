@@ -12,10 +12,11 @@ import static org.assertj.core.api.Assertions.*;
 class GroupManagerTest {
 
     GroupManager groupManager;
+    UsersManager usersManager;
 
     @BeforeEach
     void beforeEach() {
-        groupManager = GroupManager.of();
+        groupManager = GroupManager.of(usersManager = UsersManager.of());
     }
 
     @DisplayName("remove(Group): Should return NullPointerException when param is null")
@@ -51,14 +52,12 @@ class GroupManagerTest {
         Group groupB = new Group("GroupB");
         Group groupC = new Group("GroupC");
 
-        Main.getGroupManager().clear();
-        Main.getGroupManager().add(groupA);
-        Main.getGroupManager().add(groupB);
-        Main.getGroupManager().add(groupC);
+        groupManager.add(groupA);
+        groupManager.add(groupB);
+        groupManager.add(groupC);
 
         User[] users = new User[10];
 
-        UsersManager usersManager = UsersManager.of();
         usersManager.add(users[0] = new User("UserA", "User", groupA));
         usersManager.add(users[1] = new User("UserB", "User", groupA));
         usersManager.add(users[2] = new User("UserC", "User", groupA));
@@ -70,17 +69,8 @@ class GroupManagerTest {
         usersManager.add(users[8] = new User("UserI", "User", groupC));
         usersManager.add(users[9] = new User("UserJ", "User", GroupManager.DEFAULT_GROUP));
 
-        assertThat(users[0].getGroup()).isEqualTo(groupA);
-        assertThat(users[1].getGroup()).isEqualTo(groupA);
-        assertThat(users[2].getGroup()).isEqualTo(groupA);
-        assertThat(users[3].getGroup()).isEqualTo(groupB);
-        assertThat(users[4].getGroup()).isEqualTo(groupB);
-        assertThat(users[5].getGroup()).isEqualTo(groupB);
-        assertThat(users[6].getGroup()).isEqualTo(groupC);
-        assertThat(users[7].getGroup()).isEqualTo(groupC);
-        assertThat(users[8].getGroup()).isEqualTo(groupC);
-        assertThat(users[9].getGroup()).isEqualTo(GroupManager.DEFAULT_GROUP);
-        Main.getGroupManager().remove(groupA);
+        groupManager.remove(groupA);
+
         assertThat(users[0].getGroup()).isEqualTo(GroupManager.DEFAULT_GROUP);
         assertThat(users[1].getGroup()).isEqualTo(GroupManager.DEFAULT_GROUP);
         assertThat(users[2].getGroup()).isEqualTo(GroupManager.DEFAULT_GROUP);
@@ -91,8 +81,6 @@ class GroupManagerTest {
         assertThat(users[7].getGroup()).isEqualTo(groupC);
         assertThat(users[8].getGroup()).isEqualTo(groupC);
         assertThat(users[9].getGroup()).isEqualTo(GroupManager.DEFAULT_GROUP);
-
-        Main.getGroupManager().clear();
 
     }
 }

@@ -21,7 +21,6 @@ public class User {
         Preconditions.checkNotNull(group, "Grupa użytkownika musi zostać podana!");
         Preconditions.checkArgument(isValidName(firstName), "Imię użytkownika jest niepoprawne!");
         Preconditions.checkArgument(isValidName(lastName), "Nazwisko użytkownika jest niepoprawne!");
-        Preconditions.checkArgument(Main.getGroupManager().isExists(group), "Grupa nie znajduje się na liście dostępnych grup.");
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,7 +51,6 @@ public class User {
 
     public void setGroup(Group group) {
         Preconditions.checkNotNull(group, "Grupa musi zostać określona!");
-        Preconditions.checkArgument(Main.getGroupManager().isExists(group), "Grupa musi znajdować się w liście grup!");
         this.group = group;
     }
 

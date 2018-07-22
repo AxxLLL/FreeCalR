@@ -3,6 +3,7 @@ package model.community.users;
 import model.community.CommunityListAbs;
 
 public class UsersManager extends CommunityListAbs<User> {
+
     public static UsersManager of() {
         return new UsersManager();
     }

@@ -15,13 +15,6 @@ class UserTest {
 
     private static final Group DEFAULT_GROUP = GroupManager.DEFAULT_GROUP;
     private static final Group OTHER_GROUP = new Group("Other");
-    private static final GroupManager manager = Main.getGroupManager();
-
-    @BeforeAll
-    static void beforeAll() {
-        manager.add(DEFAULT_GROUP);
-        manager.add(OTHER_GROUP);
-    }
 
     @DisplayName("isValidName(String): Should return false when param is null")
     @Test
@@ -66,13 +59,7 @@ class UserTest {
         assertThatNullPointerException().isThrownBy(() -> new User("asd", "asd", null));
     }
 
-    @DisplayName("User(String,String,Group): Should return IllegalArgumentException when group is valid, but is not in group list.")
-    @Test
-    void test_7() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new User("asd", "asd", new Group("Test")));
-    }
-
-    @DisplayName("User(String,String,Group): Should return Group object when object is valid and is in group list.")
+    @DisplayName("User(String,String,Group): Should return Group object when object is valid.")
     @Test
     void test_8() {
         assertThat(new User("asd", "asd", DEFAULT_GROUP)).isExactlyInstanceOf(User.class);
@@ -120,13 +107,6 @@ class UserTest {
     void test_14() {
         User user = new User("test", "test");
         assertThatNullPointerException().isThrownBy(() -> user.setGroup(null));
-    }
-
-    @DisplayName("setGroup(Group): Should return NullPointerException when group is valid but not in list")
-    @Test
-    void test_15() {
-        User user = new User("test", "test");
-        assertThatIllegalArgumentException().isThrownBy(() -> user.setGroup(new Group("Test")));
     }
 
     @DisplayName("copyUserData(User): Should override group data with data from other group! Group data can be changed only if isEditable param value is true")

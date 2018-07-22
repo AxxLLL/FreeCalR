@@ -14,15 +14,13 @@ import model.community.users.UsersManager;
 public class Main {
     private static final FreeDaysManager freeDaysManager = new FreeDaysManager();
     private static CalendarManager calendarManager;
-    private static GroupManager groupManager = GroupManager.of();
     private static UsersManager usersManager = UsersManager.of();
-
+    private static GroupManager groupManager = GroupManager.of(usersManager);
 
     public static void main(String[] args) {
         FreeDaysInPoland.addStaticFreeDaysInPolandToManager(freeDaysManager);
         FreeDaysInPoland.addMovableFreeDaysInPolandToManager(freeDaysManager);
         calendarManager = CalendarManager.of(freeDaysManager);
-
     }
 
     public static FreeDaysManager getFreeDaysManager() {
