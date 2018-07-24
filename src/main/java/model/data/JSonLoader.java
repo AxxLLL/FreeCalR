@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -30,7 +31,7 @@ public class JSonLoader {
     }
 
     public void load() throws IOException {
-        List<String> rLines = Files.readAllLines(pathToFile);
+        List<String> rLines = Files.readAllLines(pathToFile, StandardCharsets.UTF_8);
         StringBuilder readFileBuilder = new StringBuilder();
         rLines.forEach(readFileBuilder::append);
 

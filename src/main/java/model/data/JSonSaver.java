@@ -5,9 +5,8 @@ import model.community.groups.Group;
 import model.community.groups.GroupManager;
 import model.community.users.UsersManager;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -35,7 +34,7 @@ public class JSonSaver {
         outputString.append(getGroupsData());
         outputString.append("}");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathToFile.toString()))) {
+        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(pathToFile.toString()), StandardCharsets.UTF_8)) {
             writer.write(outputString.toString());
         } catch (IOException e) {
             e.printStackTrace();

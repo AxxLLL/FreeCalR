@@ -84,14 +84,14 @@ public class StartFX extends Application {
         String path;
         if(System.getProperty("os.name").startsWith("Windows")) {
             if(System.getProperty("os.name").contains("xp")) {
-                path = (System.getProperty("user.home") + "/Application Data/FreeCallR").replace("\\", "/");
+                path = (System.getProperty("user.home") + "/Application Data/FreeCalR").replace("\\", "/");
             } else {
-                path = (System.getProperty("user.home") + "/AppData/Local/FreeCallR").replace("\\", "/");
+                path = (System.getProperty("user.home") + "/AppData/Local/FreeCalR").replace("\\", "/");
             }
 
 
         } else {
-            path = System.getProperty("user.home") + System.lineSeparator() + "FreeCallR";
+            path = System.getProperty("user.home") + System.lineSeparator() + "FreeCalR";
         }
         return Paths.get(path, "data.json");
     }
