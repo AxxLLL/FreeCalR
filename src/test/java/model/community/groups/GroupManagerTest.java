@@ -1,6 +1,5 @@
 package model.community.groups;
 
-import init.Main;
 import model.community.users.User;
 import model.community.users.UsersManager;
 import org.junit.jupiter.api.BeforeEach;

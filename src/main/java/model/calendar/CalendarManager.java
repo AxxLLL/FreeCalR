@@ -19,6 +19,10 @@ public class CalendarManager extends Calendar {
         return new CalendarManager(manager, now.getMonth(), now.getYear());
     }
 
+    public void copy(CalendarManager calendarManager) {
+        super.copy(calendarManager);
+    }
+
     public DayOfWeek getStartingDayOfWeek() {
         return getDate().getDayOfWeek();
     }

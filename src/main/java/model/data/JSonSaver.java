@@ -40,6 +40,7 @@ public class JSonSaver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private StringBuilder getUsersData() {
@@ -48,7 +49,7 @@ public class JSonSaver {
         usersManager.getList().forEach(user -> {
             usersString.append(String.format("{\"firstName\": \"%s\", \"lastName\": \"%s\", \"groupID\": %d},%n", user.getFirstName(), user.getLastName(), groupManager.getIndex(user.getGroup())));
         });
-        usersString.deleteCharAt(usersString.lastIndexOf(","));
+        if(usersString.lastIndexOf(",") != -1) usersString.deleteCharAt(usersString.lastIndexOf(","));
 
         usersString.append("]" + System.lineSeparator());
         return usersString;
@@ -61,7 +62,7 @@ public class JSonSaver {
         for(Group group: groupManager.getList()) {
             groupsString.append(String.format("{\"id\": %d, \"name\": \"%s\"},%n", index ++, group.getName()));
         }
-        groupsString.deleteCharAt(groupsString.lastIndexOf(","));
+        if(groupsString.lastIndexOf(",") != -1) groupsString.deleteCharAt(groupsString.lastIndexOf(","));
 
         groupsString.append("]" + System.lineSeparator());
         return groupsString;

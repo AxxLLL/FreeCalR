@@ -1,9 +1,7 @@
 package model.community.users;
 
-import init.Main;
 import model.community.groups.Group;
 import model.community.groups.GroupManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

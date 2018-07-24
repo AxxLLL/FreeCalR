@@ -1,6 +1,10 @@
 package model.community.groups;
 
 import com.google.common.base.Preconditions;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 
 import java.util.regex.Pattern;
 
@@ -21,6 +25,10 @@ public class Group {
         this.editable = editable;
     }
 
+    public Integer test() {
+        return new Integer(5);
+    }
+
     public boolean isEditable() {
         return editable;
     }
@@ -28,6 +36,7 @@ public class Group {
     public String getName() {
         return name;
     }
+    public Long getValue() { return 55L; }
 
     public void copyGroupData(Group group) {
         Preconditions.checkNotNull(group, "Parametr grupy musi zostać określony!");

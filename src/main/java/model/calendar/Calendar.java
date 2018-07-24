@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract public class Calendar {
-    private final List<Day> daysInMonthList;
-    private final LocalDate currentDate;
-    private final FreeDaysManager freeDaysManager;
+    private List<Day> daysInMonthList;
+    private LocalDate currentDate;
+    private FreeDaysManager freeDaysManager;
 
     LocalDate getDate() {
         return currentDate;
@@ -36,9 +36,16 @@ abstract public class Calendar {
 
         this.freeDaysManager = manager;
         this.currentDate = LocalDate.of(year, month.ordinal() + 1, 1);
-        daysInMonthList = new ArrayList<>();
+        this.daysInMonthList = new ArrayList<>();
 
         initializeDaysInMonth();
+    }
+
+    void copy(Calendar calendar) {
+        Preconditions.checkNotNull(calendar, "Obiekt do skopiowania musi zostać zainicjalizowany!");
+        this.freeDaysManager = calendar.freeDaysManager;
+        this.currentDate = calendar.currentDate;
+        this.daysInMonthList = calendar.daysInMonthList;
     }
 
     private void initializeDaysInMonth() {

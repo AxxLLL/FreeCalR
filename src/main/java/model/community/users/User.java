@@ -1,7 +1,6 @@
 package model.community.users;
 
 import com.google.common.base.Preconditions;
-import init.Main;
 import javafx.scene.control.CheckBox;
 import model.community.groups.Group;
 import model.community.groups.GroupManager;
@@ -25,8 +24,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.group = group;
-        //this.saveToList = new CheckBox();
-        //this.saveToList.setSelected(true);
+        this.saveToList = new CheckBox();
+        this.saveToList.setSelected(true);
     }
 
     public User(String firstName, String lastName) {

@@ -46,4 +46,9 @@ public class GroupManager extends CommunityListAbs<Group> {
         this.usersManager = usersManager;
         add(DEFAULT_GROUP);
     }
+
+    public long countUsersInGroup(Group group) {
+        if(group == null) return 0;
+        return usersManager.getList().stream().filter(u -> u.getGroup().equals(group)).count();
+    }
 }
