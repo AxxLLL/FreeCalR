@@ -1,5 +1,6 @@
-package controllers;
+package controllers.fx;
 
+import controllers.ControllerManager;
 import init.StartFX;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +22,12 @@ public class EditGroupController {
     @FXML private Button saveButton;
     @FXML private Button deleteButton;
 
+    private UsersTableController usersTableController = (UsersTableController)ControllerManager.get(UsersTableController.class);
+
+    public EditGroupController() {
+        ControllerManager.add(this);
+    }
+
     @FXML private void initialize() {
         initializeTable();
     }
@@ -35,7 +42,7 @@ public class EditGroupController {
                 if (groupsList.stream().noneMatch(g -> g.equals(newGroup))) {
                     oldGroup.copyGroupData(newGroup);
                     refreshTable();
-                    UsersTableController.getController().refreshTable();
+                    usersTableController.refreshTable();
                     showInfoMessage("Pomyślnie edytowano dane grupy!", "GREEN");
                 } else {
                     showInfoMessage("Grupa o takiej nazwie już istnieje!", "RED");
@@ -60,7 +67,7 @@ public class EditGroupController {
                 if(StartFX.getGroupManager().remove(selectedGroup)) {
                     showInfoMessage("Grupa została usunięta z listy", "GREEN");
                     refreshTable();
-                    UsersTableController.getController().refreshTable();
+                    usersTableController.refreshTable();
                     groupTable.getSelectionModel().selectFirst();
                 } else {
                     showInfoMessage("Nie można usunąć grupy z listy", "RED");

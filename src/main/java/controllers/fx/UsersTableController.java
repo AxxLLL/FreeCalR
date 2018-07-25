@@ -1,5 +1,6 @@
-package controllers;
+package controllers.fx;
 
+import controllers.ControllerManager;
 import init.StartFX;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -26,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UsersTableController {
-    private static UsersTableController controller;
     private List<String> monthNames = new ArrayList<>(Arrays.asList("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"));
 
     @FXML private TableView<User> dataTable;
@@ -35,15 +35,11 @@ public class UsersTableController {
     @FXML private TableColumn<User, CheckBox> saveColumn;
 
     public UsersTableController() {
-        UsersTableController.controller = this;
+        ControllerManager.add(this);
     }
 
     public TableView getTableElement() {
         return dataTable;
-    }
-
-    public static UsersTableController getController() {
-        return controller;
     }
 
     @FXML

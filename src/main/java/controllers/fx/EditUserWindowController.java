@@ -1,5 +1,6 @@
-package controllers;
+package controllers.fx;
 
+import controllers.ControllerManager;
 import init.StartFX;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +16,18 @@ import model.community.users.User;
 import java.util.List;
 
 public class EditUserWindowController {
-    @FXML TextField firstName;
-    @FXML TextField lastName;
-    @FXML ChoiceBox<Group> group;
-    @FXML Label messageLabel;
-    @FXML Button saveButton;
+    private @FXML TextField firstName;
+    private @FXML TextField lastName;
+    private @FXML ChoiceBox<Group> group;
+    private @FXML Label messageLabel;
+    private @FXML Button saveButton;
 
-    User editedUser = (User) UsersTableController.getController().getTableElement().getSelectionModel().getSelectedItem();
+    private UsersTableController usersTableController = (UsersTableController)ControllerManager.get(UsersTableController.class);
+    private User editedUser = (User) usersTableController.getTableElement().getSelectionModel().getSelectedItem();
+
+    public EditUserWindowController() {
+        ControllerManager.add(this);
+    }
 
     @FXML
     private void initialize() {
@@ -48,7 +54,7 @@ public class EditUserWindowController {
                 copiedUsersList.removeIf(e_user -> e_user.equals(editedUser));
                 if(copiedUsersList.stream().noneMatch(e_user -> e_user.equals(newUser))) {
                     editedUser.copyUserData(newUser);
-                    UsersTableController.getController().refreshTable();
+                    usersTableController.refreshTable();
                     showInfoMessage("Pomyślnie edytowano dane użytkownika!", "GREEN");
                     Stage stage = (Stage) saveButton.getScene().getWindow();
                     stage.close();

@@ -1,7 +1,8 @@
 package init;
 
-import controllers.CalendarController;
-import controllers.UsersTableController;
+import controllers.fx.CalendarController;
+import controllers.ControllerManager;
+import controllers.fx.UsersTableController;
 import init.other.FreeDaysInPoland;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -49,8 +50,8 @@ public class StartFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         mainWindow = MainWindow.start(primaryStage);
-        CalendarController.getController().initializeCalendar();
-        UsersTableController.getController().refreshTable();
+        ((CalendarController) ControllerManager.get(CalendarController.class)).initializeCalendar();
+        ((UsersTableController) ControllerManager.get(UsersTableController.class)).refreshTable();
     }
 
     @Override

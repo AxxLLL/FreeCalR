@@ -1,4 +1,5 @@
-package controllers;
+package controllers.fx;
+import controllers.ControllerManager;
 import init.StartFX;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,10 @@ public class AddUserWindowController {
     @FXML private ChoiceBox<Group> groupList;
     @FXML private Label messageLabel;
 
+    public AddUserWindowController() {
+        ControllerManager.add(this);
+    }
+
     @FXML
     void initialize() {
         ObservableList<Group> groupItems = FXCollections.observableList(StartFX.getGroupManager().getList());
@@ -29,7 +34,7 @@ public class AddUserWindowController {
                 showInfoMessage("Użytkownik już jest na liście!", "RED");
             } else {
                 showInfoMessage("Użytkownik został dodany do listy!", "GREEN");
-                UsersTableController.getController().refreshTable();
+                ((UsersTableController)ControllerManager.get(UsersTableController.class)).refreshTable();
             }
         } catch (IllegalArgumentException e) {
             showInfoMessage("Niepoprawna nazwa użytkownika!", "RED");

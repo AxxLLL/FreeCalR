@@ -1,4 +1,5 @@
-package controllers;
+package controllers.fx;
+import controllers.ControllerManager;
 import init.StartFX;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import model.calendar.Calendar;
 import model.calendar.CalendarManager;
 
 import java.time.LocalDate;
@@ -21,20 +21,15 @@ import java.util.List;
 
 public class CalendarController {
     private final Initializer calendarInitializer = new Initializer();
-    private static CalendarController controller;
 
-    private @FXML Spinner <String> monthSpinner;
-    private @FXML Spinner <Integer> yearSpinner;
-    private @FXML Label workHoursLabel;
+    @FXML private Spinner <String> monthSpinner;
+    @FXML private Spinner <Integer> yearSpinner;
+    @FXML private Label workHoursLabel;
 
     private List<String> monthNames = new ArrayList<>(Arrays.asList("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"));
 
-    public static CalendarController getController() {
-        return controller;
-    }
-
     public CalendarController() {
-        CalendarController.controller = this;
+        ControllerManager.add(this);
     }
 
     public void initializeCalendar() {
