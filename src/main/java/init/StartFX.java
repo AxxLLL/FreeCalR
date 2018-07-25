@@ -4,6 +4,7 @@ import controllers.fx.CalendarController;
 import controllers.ControllerManager;
 import controllers.fx.UsersTableController;
 import init.other.FreeDaysInPoland;
+import init.other.SavePathGenerator;
 import init.other.monthsnames.MonthName;
 import init.other.monthsnames.MonthNames_PL;
 import javafx.application.Application;
@@ -29,11 +30,11 @@ public class StartFX extends Application {
     private static CalendarManager calendarManager;
     private static UsersManager usersManager = UsersManager.of();
     private static GroupManager groupManager = GroupManager.of(usersManager);
-    private static Path pathToDataFile = Paths.get("zfileTest", "saver.json");
+    private static Path pathToDataFile;
     public static MonthName monthName = new MonthNames_PL();
 
     public static void main(String[] args) {
-        pathToDataFile = getPathBySystem();
+        pathToDataFile = Paths.get(SavePathGenerator.getPath().toString(), "data.json");
 
         FreeDaysInPoland.addStaticFreeDaysInPolandToManager(freeDaysManager);
         FreeDaysInPoland.addMovableFreeDaysInPolandToManager(freeDaysManager);
@@ -84,19 +85,4 @@ public class StartFX extends Application {
 
     public static UsersManager getUsersManager() { return usersManager; }
 
-    private static Path getPathBySystem() {
-        String path;
-        if(System.getProperty("os.name").startsWith("Windows")) {
-            if(System.getProperty("os.name").contains("xp")) {
-                path = (System.getProperty("user.home") + "/Application Data/FreeCalR").replace("\\", "/");
-            } else {
-                path = (System.getProperty("user.home") + "/AppData/Local/FreeCalR").replace("\\", "/");
-            }
-
-
-        } else {
-            path = System.getProperty("user.home") + System.lineSeparator() + "FreeCalR";
-        }
-        return Paths.get(path, "data.json");
-    }
 }
