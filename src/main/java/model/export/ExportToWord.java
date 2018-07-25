@@ -1,6 +1,7 @@
 package model.export;
 
 import com.google.common.base.Preconditions;
+import init.StartFX;
 import model.calendar.CalendarManager;
 import model.community.users.User;
 import org.apache.poi.xwpf.usermodel.*;
@@ -59,7 +60,6 @@ public class ExportToWord implements Export {
 
     private class WordElements {
 
-        private String[] monthNamesInPL = {"Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"};
         private final XWPFDocument document;
 
         private WordElements() {
@@ -100,7 +100,7 @@ public class ExportToWord implements Export {
             setFastRun(cardName, "Arial", 14, true, "000000", "KARTA EWIDENCJI CZASU PRACY");
             setFastRun(cardUserName, "Times New Roman", 12, true, "000000", String.format("%s %s", user.getFirstName(), user.getLastName()));
             setFastRun(cardUserSection, "Times New Roman", 10, false, "000000", String.format("Dział: %s", groupName));
-            setFastRun(cardMonthName, "Times New Roman", 12, true, "000000", String.format("%s %d", monthNamesInPL[calendarManager.getMonth().getValue() - 1], calendarManager.getYear())).setCapitalized(true);
+            setFastRun(cardMonthName, "Times New Roman", 12, true, "000000", String.format("%s %d", StartFX.monthName.getName(calendarManager.getMonth()), calendarManager.getYear())).setCapitalized(true);
         }
 
         private void createCalendarTable() {

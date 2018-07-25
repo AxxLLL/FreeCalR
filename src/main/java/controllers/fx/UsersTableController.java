@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UsersTableController {
-    private List<String> monthNames = new ArrayList<>(Arrays.asList("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"));
 
     @FXML private TableView<User> dataTable;
     @FXML private TableColumn<User, String> nameColumn;
@@ -114,8 +113,8 @@ public class UsersTableController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Word 2007", "*.docx"));
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
         fileChooser.setTitle("Wybierz plik do zapisu listy");
-        if(title == null) fileChooser.setInitialFileName(String.format("%s %d.docx", monthNames.get(calendarManager.getMonth().getValue() - 1), calendarManager.getYear()));
-        else fileChooser.setInitialFileName(String.format("%s - %s %d.docx", title, monthNames.get(calendarManager.getMonth().getValue() - 1), calendarManager.getYear()));
+        if(title == null) fileChooser.setInitialFileName(String.format("%s %d.docx", StartFX.monthName.getName(calendarManager.getMonth()), calendarManager.getYear()));
+        else fileChooser.setInitialFileName(String.format("%s - %s %d.docx", title, StartFX.monthName.getName(calendarManager.getMonth()), calendarManager.getYear()));
         return fileChooser.showSaveDialog(StartFX.getScene().getWindow());
     }
 

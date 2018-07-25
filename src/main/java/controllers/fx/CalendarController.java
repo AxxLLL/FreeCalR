@@ -15,9 +15,6 @@ import javafx.scene.control.SpinnerValueFactory;
 import model.calendar.CalendarManager;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CalendarController {
     private final Initializer calendarInitializer = new Initializer();
@@ -26,7 +23,7 @@ public class CalendarController {
     @FXML private Spinner <Integer> yearSpinner;
     @FXML private Label workHoursLabel;
 
-    private List<String> monthNames = new ArrayList<>(Arrays.asList("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"));
+
 
     public CalendarController() {
         ControllerManager.add(this);
@@ -46,12 +43,12 @@ public class CalendarController {
     @FXML
     private void currentDayButtonPressed() {
         LocalDate date = LocalDate.now();
-        monthSpinner.getValueFactory().valueProperty().setValue(monthNames.get(date.getMonth().getValue() - 1));
+        monthSpinner.getValueFactory().valueProperty().setValue(StartFX.monthName.getName(date.getMonth().getValue()));
         yearSpinner.getValueFactory().valueProperty().setValue(date.getYear());
     }
 
     private void dateChanged() {
-        int monthValue = monthNames.indexOf(monthSpinner.getValue()) + 1;
+        int monthValue = StartFX.monthName.getMonthIndex(monthSpinner.getValue());
         int yearValue = yearSpinner.getValue();
         CalendarManager calendarManager = StartFX.getCalendarManager();
 
@@ -102,10 +99,10 @@ public class CalendarController {
 
     private class Initializer {
         private void initializeMonthSpinner() {
-            ObservableList<String> obListMonthNames = FXCollections.observableArrayList(monthNames);
+            ObservableList<String> obListMonthNames = FXCollections.observableArrayList(StartFX.monthName.getList());
             SpinnerValueFactory<String> monthFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(obListMonthNames);
             monthSpinner.setValueFactory(monthFactory);
-            monthSpinner.getValueFactory().valueProperty().setValue(monthNames.get(StartFX.getCalendarManager().getMonth().getValue() - 1));
+            monthSpinner.getValueFactory().valueProperty().setValue(StartFX.monthName.getName(StartFX.getCalendarManager().getMonth()));
             monthSpinner.valueProperty().addListener((a) -> dateChanged());
         }
 

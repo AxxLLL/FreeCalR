@@ -4,6 +4,8 @@ import controllers.fx.CalendarController;
 import controllers.ControllerManager;
 import controllers.fx.UsersTableController;
 import init.other.FreeDaysInPoland;
+import init.other.monthsnames.MonthName;
+import init.other.monthsnames.MonthNames_PL;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -28,6 +30,7 @@ public class StartFX extends Application {
     private static UsersManager usersManager = UsersManager.of();
     private static GroupManager groupManager = GroupManager.of(usersManager);
     private static Path pathToDataFile = Paths.get("zfileTest", "saver.json");
+    public static MonthName monthName = new MonthNames_PL();
 
     public static void main(String[] args) {
         pathToDataFile = getPathBySystem();
