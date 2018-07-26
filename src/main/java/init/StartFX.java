@@ -40,7 +40,6 @@ public class StartFX extends Application {
         FreeDaysInPoland.addMovableFreeDaysInPolandToManager(freeDaysManager);
         calendarManager = CalendarManager.of(freeDaysManager);
         try {
-            //new JSonLoader(Paths.get("zfileTest", "validData.json"), usersManager, groupManager).load();
             new JSonLoader(pathToDataFile, usersManager, groupManager).load();
         } catch (NoSuchFileException e) {
 

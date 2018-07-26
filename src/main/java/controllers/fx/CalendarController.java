@@ -23,12 +23,14 @@ public class CalendarController {
     @FXML private Spinner <Integer> yearSpinner;
     @FXML private Label workHoursLabel;
 
-
-
     public CalendarController() {
         ControllerManager.add(this);
     }
 
+    /*
+    * Dont remove this, due to null pointer exception when it is initialized before JavaFX fully load components.
+    * It cant be in JavaFX 'initialize' method!
+    * */
     public void initializeCalendar() {
         calendarInitializer.initializeCalendar(StartFX.getCalendarManager());
     }
@@ -112,9 +114,8 @@ public class CalendarController {
             yearSpinner.valueProperty().addListener((a) -> dateChanged());
         }
 
-        public void initializeCalendar(CalendarManager calendar) {
+        void initializeCalendar(CalendarManager calendar) {
             Scene scene = workHoursLabel.getScene();
-
             Button dayBtn;
             for (int row = 0, col, dayIndex = 1; row < 6; row++) {
                 for (col = 0; col < 7; col++) {

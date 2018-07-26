@@ -21,14 +21,14 @@ public class EditGroupController {
     @FXML private Label messageLabel;
     @FXML private Button saveButton;
     @FXML private Button deleteButton;
-
     private UsersTableController usersTableController = (UsersTableController)ControllerManager.get(UsersTableController.class);
 
     public EditGroupController() {
         ControllerManager.add(this);
     }
 
-    @FXML private void initialize() {
+    @FXML
+    private void initialize() {
         initializeTable();
     }
 

@@ -1,20 +1,18 @@
 package controllers.fx;
 
+import com.sun.javafx.scene.control.skin.TableHeaderRow;
 import controllers.ControllerManager;
 import init.StartFX;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import model.calendar.CalendarManager;
-import model.community.groups.Group;
 import model.community.users.User;
-import model.community.users.UsersManager;
 import model.export.ExportToWord;
 import view.utils.FXMLPath;
 import view.utils.FXMLUtils;
@@ -22,8 +20,6 @@ import view.utils.SimpleAlert;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class UsersTableController {
@@ -32,49 +28,20 @@ public class UsersTableController {
     @FXML private TableColumn<User, String> nameColumn;
     @FXML private TableColumn<User, String> groupColumn;
     @FXML private TableColumn<User, CheckBox> saveColumn;
+    private Initializer initializer = new Initializer();
 
     public UsersTableController() {
         ControllerManager.add(this);
     }
 
-    public TableView getTableElement() {
+    TableView getTableElement() {
         return dataTable;
     }
 
     @FXML
     private void initialize() {
-        saveColumn.setStyle("-fx-alignment: center;");
-        groupColumn.setStyle("-fx-alignment: center;");
-
-        PropertyValueFactory<User, String> userNameProperty = new PropertyValueFactory<>("fullName");
-        PropertyValueFactory<User, String> groupNameProperty = new PropertyValueFactory<>("groupName");
-        PropertyValueFactory<User, CheckBox> saveUserListProperty = new PropertyValueFactory<>("userSaveToListCheckBoxElement");
-
-        nameColumn.setCellValueFactory(userNameProperty);
-        groupColumn.setCellValueFactory(groupNameProperty);
-        saveColumn.setCellValueFactory(saveUserListProperty);
-
-        dataTable.setRowFactory(tableView -> {
-            final TableRow<User> row = new TableRow<>();
-            final ContextMenu rowMenu = createTableContextMenu();
-
-            row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                            .then(rowMenu)
-                            .otherwise((ContextMenu) null));
-
-            row.setOnMouseClicked(event -> {
-                if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2 && !row.isEmpty()) {
-                    try {
-                        FXMLUtils.loadFXMLAsModal(StartFX.getScene().getWindow(), FXMLPath.EDIT_USER_WINDOW, "Edytuj dane użytkownika");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            return row;
-        });
+        initializer.initializeTable();
+        initializer.initializeRowRightClickMenu();
     }
 
     @FXML
@@ -118,97 +85,7 @@ public class UsersTableController {
         return fileChooser.showSaveDialog(StartFX.getScene().getWindow());
     }
 
-    private ContextMenu createTableContextMenu() {
-        MenuItem editUserDataItem = new MenuItem("Edytuj dane użytkownika");
-        MenuItem printListItem = new MenuItem("Drukuj listę");
-        MenuItem selectGroupItem = new MenuItem("Zaznacz grupę na liście");
-        MenuItem unselectGroupItem = new MenuItem("Odznacz grupę na liście");
-        MenuItem selectAllGroupItem = new MenuItem("Zaznacz tylko tę grupę na liście");
-        MenuItem unselectAllGroupItem = new MenuItem("Odznacz tylko tę grupę na liście");
-        MenuItem deleteUserFromListItem = new MenuItem("Usuń użytkownika z listy");
-
-        ContextMenu menu = new ContextMenu(printListItem, editUserDataItem, new SeparatorMenuItem(), selectGroupItem, unselectGroupItem, selectAllGroupItem, unselectAllGroupItem, new SeparatorMenuItem(), deleteUserFromListItem);
-
-        editUserDataItem.setOnAction(event -> {
-            try {
-                FXMLUtils.loadFXMLAsModal(StartFX.getScene().getWindow(), FXMLPath.EDIT_USER_WINDOW, "Edytuj dane użytkownika");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        printListItem.setOnAction(event -> {
-            printList(Arrays.asList(dataTable.getSelectionModel().getSelectedItem()));
-        });
-
-        deleteUserFromListItem.setOnAction(event -> {
-            User user = dataTable.getSelectionModel().getSelectedItem();
-            deleteUserFromList(user);
-        });
-
-        selectGroupItem.setOnAction(event -> {
-            Group group = dataTable.getSelectionModel().getSelectedItem().getGroup();
-
-            UsersManager users = StartFX.getUsersManager();
-            User user;
-            for(int i = 0; i < users.getSize(); i ++) {
-                user = users.getByIndex(i);
-                if(user.getGroup().equals(group)) {
-                    user.getUserSaveToListCheckBoxElement().setSelected(true);
-                }
-            }
-        });
-
-        unselectGroupItem.setOnAction(event -> {
-            Group group = dataTable.getSelectionModel().getSelectedItem().getGroup();
-
-            UsersManager users = StartFX.getUsersManager();
-            User user;
-            for(int i = 0; i < users.getSize(); i ++) {
-                user = users.getByIndex(i);
-                if(user.getGroup().equals(group)) {
-                    user.getUserSaveToListCheckBoxElement().setSelected(false);
-                }
-            }
-        });
-
-        selectAllGroupItem.setOnAction(event -> {
-            Group group = dataTable.getSelectionModel().getSelectedItem().getGroup();
-
-            UsersManager users = StartFX.getUsersManager();
-            User user;
-            for(int i = 0; i < users.getSize(); i ++) {
-                user = users.getByIndex(i);
-                user.getUserSaveToListCheckBoxElement().setSelected(user.getGroup().equals(group));
-            }
-        });
-
-        unselectAllGroupItem.setOnAction(event -> {
-            Group group = dataTable.getSelectionModel().getSelectedItem().getGroup();
-
-            UsersManager users = StartFX.getUsersManager();
-            User user;
-            for(int i = 0; i < users.getSize(); i ++) {
-                user = users.getByIndex(i);
-                user.getUserSaveToListCheckBoxElement().setSelected(!user.getGroup().equals(group));
-            }
-        });
-        return menu;
-    }
-
-    private void deleteUserFromList(User user) {
-        String contentText = String.format("Czy na pewno chcesz usunąć użytkownika %s z listy?", user.getFullName());
-        Alert deleteUserAlert = new Alert(Alert.AlertType.CONFIRMATION, contentText, ButtonType.YES, ButtonType.NO);
-        deleteUserAlert.setTitle("Usuń użytkownika");
-        deleteUserAlert.setHeaderText(null);
-        deleteUserAlert.setGraphic(null);
-        if(deleteUserAlert.showAndWait().get() == ButtonType.YES) {
-            StartFX.getUsersManager().remove(user);
-            refreshTable();
-        }
-    }
-
-    private void printList(List<User> listOfUsers) {
+    void printList(List<User> listOfUsers) {
         if(listOfUsers.isEmpty()) {
             SimpleAlert.showError("Brak użytkowników","Lista użytkowników, dla których chcesz wydrukować listę, jest pusta.");
         } else {
@@ -226,6 +103,48 @@ public class UsersTableController {
                     alert.close();
                 }
             }
+        }
+    }
+
+    private class Initializer {
+        private void initializeTable() {
+            saveColumn.setStyle("-fx-alignment: center;");
+            groupColumn.setStyle("-fx-alignment: center;");
+
+            PropertyValueFactory<User, String> userNameProperty = new PropertyValueFactory<>("fullName");
+            PropertyValueFactory<User, String> groupNameProperty = new PropertyValueFactory<>("groupName");
+            PropertyValueFactory<User, CheckBox> saveUserListProperty = new PropertyValueFactory<>("userSaveToListCheckBoxElement");
+
+            nameColumn.setCellValueFactory(userNameProperty);
+            groupColumn.setCellValueFactory(groupNameProperty);
+            saveColumn.setCellValueFactory(saveUserListProperty);
+
+            saveColumn.setSortable(false);
+
+        }
+
+        private void initializeRowRightClickMenu() {
+            dataTable.setRowFactory(tableView -> {
+                final TableRow<User> row = new TableRow<>();
+                final ContextMenu rowMenu = new UsersTableContextMenu((UsersTableController)ControllerManager.get(UsersTableController.class)).getContextMenu();
+
+                row.contextMenuProperty().bind(
+                        Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                                .then(rowMenu)
+                                .otherwise((ContextMenu) null));
+
+                row.setOnMouseClicked(event -> {
+                    if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2 && !row.isEmpty()) {
+                        try {
+                            FXMLUtils.loadFXMLAsModal(StartFX.getScene().getWindow(), FXMLPath.EDIT_USER_WINDOW, "Edytuj dane użytkownika");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                return row;
+            });
         }
     }
 }

@@ -21,7 +21,6 @@ public class EditUserWindowController {
     private @FXML ChoiceBox<Group> group;
     private @FXML Label messageLabel;
     private @FXML Button saveButton;
-
     private UsersTableController usersTableController = (UsersTableController)ControllerManager.get(UsersTableController.class);
     private User editedUser = (User) usersTableController.getTableElement().getSelectionModel().getSelectedItem();
 
@@ -37,7 +36,6 @@ public class EditUserWindowController {
         ObservableList<Group> listOfGroups = FXCollections.observableList(StartFX.getGroupManager().getList());
         group.setItems(listOfGroups);
         group.getSelectionModel().select(editedUser.getGroup());
-
     }
 
     @FXML
