@@ -7,10 +7,13 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import model.calendar.CalendarManager;
 import model.community.users.User;
 import model.community.users.UsersManager;
@@ -22,7 +25,6 @@ import view.utils.SimpleAlert;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.function.Function;
 
 public class UsersTableController {
 
@@ -30,6 +32,7 @@ public class UsersTableController {
     @FXML private TableColumn<User, String> nameColumn;
     @FXML private TableColumn<User, String> groupColumn;
     @FXML private TableColumn<User, CheckBox> saveColumn;
+    @FXML private TableColumn moveItemColumn;
     private Initializer initializer = new Initializer();
 
     public UsersTableController() {
@@ -44,6 +47,7 @@ public class UsersTableController {
     private void initialize() {
         initializer.initializeTable();
         initializer.initializeRowRightClickMenu();
+        initializer.initializeMoveIntemFactory();
     }
 
     @FXML
@@ -132,6 +136,8 @@ public class UsersTableController {
             nameColumn.setCellValueFactory(userNameProperty);
             groupColumn.setCellValueFactory(groupNameProperty);
             saveColumn.setCellValueFactory(saveUserListProperty);
+            moveItemColumn.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+            moveItemColumn.setCellFactory(initializeMoveIntemFactory());
 
             saveColumn.setSortable(false);
         }
@@ -158,6 +164,48 @@ public class UsersTableController {
 
                 return row;
             });
+        }
+
+        private Callback<TableColumn<User, String>, TableCell<User, String>> initializeMoveIntemFactory() {
+            return new Callback<TableColumn<User, String>, TableCell<User, String>>() {
+                @Override
+                public TableCell call(final TableColumn<User, String> param) {
+                    final TableCell<User, String> cell = new TableCell<User, String>() {
+
+                        final Button btnUp = new Button("▲");
+                        final Button btnDown = new Button("▼");
+
+                        @Override
+                        public void updateItem(String item, boolean empty) {
+                            super.updateItem(item, empty);
+                            btnUp.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE; -fx-padding: 5 5 5 5");
+                            btnDown.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE; -fx-padding: 5 5 5 5");
+                            btnUp.setCursor(Cursor.HAND);
+                            btnDown.setCursor(Cursor.HAND);
+                            if (empty) {
+                                setGraphic(null);
+                                setText(null);
+                            } else {
+                                HBox hbox = new HBox(btnUp, btnDown);
+                                UsersManager usersManager = StartFX.getUsersManager();
+                                btnUp.setOnAction(event -> {
+                                    User user = getTableView().getItems().get(getIndex());
+                                    usersManager.upInList(user);
+                                    refreshTable();
+                                });
+                                btnDown.setOnAction(event -> {
+                                    User user = getTableView().getItems().get(getIndex());
+                                    usersManager.downInList(user);
+                                    refreshTable();
+                                });
+                                setGraphic(hbox);
+                                setText(null);
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            };
         }
     }
 }

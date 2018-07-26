@@ -46,6 +46,24 @@ public abstract class CommunityListAbs<T> {
         dataList.clear();
     }
 
+    public void downInList(T item) {
+        Preconditions.checkNotNull(item);
+        int index = dataList.indexOf(item);
+        if(index >= 0 && dataList.size() -1 > index) {
+            dataList.set(index, dataList.get(index + 1));
+            dataList.set(index + 1, item);
+        }
+    }
+
+    public void upInList(T item) {
+        Preconditions.checkNotNull(item);
+        int index = dataList.indexOf(item);
+        if(index >= 0 && index > 0) {
+            dataList.set(index, dataList.get(index - 1));
+            dataList.set(index - 1, item);
+        }
+    }
+
     private boolean isValidIndex(int index) {
         return index >= 0 && index < dataList.size();
     }
