@@ -126,8 +126,10 @@ public class UsersTableController {
 
     private class Initializer {
         private void initializeTable() {
-            saveColumn.setStyle("-fx-alignment: center;");
-            groupColumn.setStyle("-fx-alignment: center;");
+            nameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+            nameColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+            saveColumn.setStyle("-fx-alignment: CENTER;");
+            moveItemColumn.setStyle("-fx-alignment: CENTER;");
 
             PropertyValueFactory<User, String> userNameProperty = new PropertyValueFactory<>("fullName");
             PropertyValueFactory<User, String> groupNameProperty = new PropertyValueFactory<>("groupName");
@@ -140,6 +142,7 @@ public class UsersTableController {
             moveItemColumn.setCellFactory(initializeMoveIntemFactory());
 
             saveColumn.setSortable(false);
+            moveItemColumn.setSortable(false);
         }
 
         private void initializeRowRightClickMenu() {
@@ -178,8 +181,8 @@ public class UsersTableController {
                         @Override
                         public void updateItem(String item, boolean empty) {
                             super.updateItem(item, empty);
-                            btnUp.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE; -fx-padding: 5 5 5 5");
-                            btnDown.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE; -fx-padding: 5 5 5 5");
+                            btnUp.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE;");
+                            btnDown.setStyle("-fx-background-color: null; -fx-border-size: 1px; -fx-border-color: EEEEEE;");
                             btnUp.setCursor(Cursor.HAND);
                             btnDown.setCursor(Cursor.HAND);
                             if (empty) {

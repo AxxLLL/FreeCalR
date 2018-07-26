@@ -19,9 +19,9 @@
                <content>
                   <TableView fx:id="dataTable" prefHeight="299.0" prefWidth="373.0">
                     <columns>
-                      <TableColumn fx:id="nameColumn" prefWidth="137.0" text="Imię i nazwisko" />
-                      <TableColumn fx:id="groupColumn" minWidth="9.0" prefWidth="103.0" text="Dział" />
-                        <TableColumn fx:id="saveColumn" prefWidth="64.0" text="Zapisz">
+                      <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Imię i nazwisko" />
+                      <TableColumn fx:id="groupColumn" minWidth="9.0" prefWidth="96.0" text="Dział" />
+                        <TableColumn fx:id="saveColumn" prefWidth="66.0" text="Zapisz">
                            <graphic>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#selectAllGroupsButton" prefHeight="22.0" prefWidth="19.0" style="-fx-pref-width: 15; -fx-pref-height: 15;" text="x">
                                  <opaqueInsets>
@@ -32,7 +32,7 @@
                                  </font>
                               </Button>
                            </graphic></TableColumn>
-                        <TableColumn fx:id="moveItemColumn" prefWidth="68.0" text="Przesuń" />
+                        <TableColumn fx:id="moveItemColumn" prefWidth="79.0" text="Przesuń" />
                     </columns>
                   </TableView>
                </content>
