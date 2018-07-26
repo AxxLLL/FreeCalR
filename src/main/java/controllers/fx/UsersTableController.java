@@ -13,6 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import model.calendar.CalendarManager;
 import model.community.users.User;
+import model.community.users.UsersManager;
 import model.export.ExportToWord;
 import view.utils.FXMLPath;
 import view.utils.FXMLUtils;
@@ -21,6 +22,7 @@ import view.utils.SimpleAlert;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Function;
 
 public class UsersTableController {
 
@@ -66,6 +68,18 @@ public class UsersTableController {
             FXMLUtils.loadFXMLAsModal(StartFX.getScene().getWindow(), FXMLPath.EDIT_GROUP_WINDOW, "Dodaj grupę");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void selectAllGroupsButton() {
+        int selected = 0;
+        List<User> usersList = StartFX.getUsersManager().getList();
+        for(User user : usersList) {
+            selected = (user.isUserSaveToListEnabled()) ? selected + 1 : selected - 1;
+        }
+        for(User user : usersList) {
+            user.getUserSaveToListCheckBoxElement().setSelected(!(selected > 0));
         }
     }
 
@@ -120,7 +134,6 @@ public class UsersTableController {
             saveColumn.setCellValueFactory(saveUserListProperty);
 
             saveColumn.setSortable(false);
-
         }
 
         private void initializeRowRightClickMenu() {
