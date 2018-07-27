@@ -1,6 +1,7 @@
 package view;
 
 import com.google.common.base.Preconditions;
+import init.ProgramInfo;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,7 +24,7 @@ public class MainWindow {
             primaryStage.setScene(mainWindowScene);
             primaryStage.initStyle(StageStyle.UNIFIED);
             primaryStage.setResizable(false);
-            primaryStage.setTitle("Free Calendar");
+            primaryStage.setTitle(ProgramInfo.PROGRAM_NAME + " (" + ProgramInfo.VERSION + ")");
             primaryStage.show();
         } catch (IOException e) {
             System.out.println("Błąd: Wystąpił błąd przy próbie uruchomienia programu!");

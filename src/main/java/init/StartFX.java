@@ -36,8 +36,6 @@ public class StartFX extends Application {
     public static void main(String[] args) {
         pathToDataFile = Paths.get(SavePathGenerator.getPath().toString(), "data.json");
 
-        FreeDaysInPoland.addStaticFreeDaysInPolandToManager(freeDaysManager);
-        FreeDaysInPoland.addMovableFreeDaysInPolandToManager(freeDaysManager);
         calendarManager = CalendarManager.of(freeDaysManager);
         try {
             new JSonLoader(pathToDataFile, usersManager, groupManager).load();

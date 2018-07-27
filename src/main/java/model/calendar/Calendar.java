@@ -1,6 +1,7 @@
 package model.calendar;
 
 import com.google.common.base.Preconditions;
+import init.other.FreeDaysInPoland;
 import model.calendar.day.Day;
 import model.calendar.day.DayType;
 import model.calendar.freedays.FreeDay;
@@ -37,6 +38,9 @@ abstract public class Calendar {
         this.freeDaysManager = manager;
         this.currentDate = LocalDate.of(year, month.ordinal() + 1, 1);
         this.daysInMonthList = new ArrayList<>();
+
+        FreeDaysInPoland.addStaticFreeDaysInPolandToManager(this.freeDaysManager);
+        FreeDaysInPoland.addMovableFreeDaysInPolandToManager(this.freeDaysManager, year);
 
         initializeDaysInMonth();
     }

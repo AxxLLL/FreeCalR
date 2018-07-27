@@ -1,6 +1,7 @@
 package controllers.fx;
 
 import controllers.ControllerManager;
+import init.ProgramInfo;
 import javafx.fxml.FXML;
 import view.utils.SimpleAlert;
 
@@ -13,9 +14,10 @@ public class MainWindowController {
     @FXML
     private void onAboutMenuItemClick() {
         SimpleAlert.showInfo("O programie",
-                "Nazwa: FreeCalR"+System.lineSeparator()+
-                        "Wersja: 2.0.1 (26.07.2018)"+System.lineSeparator()+
-                        "Autor: Rafał (AxL) Żółtański");
+                "Nazwa: " + ProgramInfo.PROGRAM_NAME + System.lineSeparator() +
+                        "Wersja: " + ProgramInfo.VERSION + " (r." + ProgramInfo.REL_VER + ")" + System.lineSeparator() +
+                        "Ost. modyfikacja: " + ProgramInfo.LAST_CHANGE_DATE + System.lineSeparator() +
+                        "Autor: " + ProgramInfo.AUTHOR
+        );
     }
-
 }

@@ -47,7 +47,7 @@ public class UsersTableController {
     private void initialize() {
         initializer.initializeTable();
         initializer.initializeRowRightClickMenu();
-        initializer.initializeMoveIntemFactory();
+        initializer.initializeMoveItemFactory();
     }
 
     @FXML
@@ -110,15 +110,15 @@ public class UsersTableController {
             CalendarManager calendarManager = StartFX.getCalendarManager();
             File fileToSave = showSelectFileWindow(calendarManager, listOfUsers.size() == 1 ? listOfUsers.get(0).getFullName() : null);
             if (fileToSave != null) {
-                Alert alert = SimpleAlert.showInfo("Zapis do pliku", "Trwa zapisywanie danych do pliku" + System.lineSeparator() + "Może to potrwać parę chwil!", false);
-                alert.show();
+                Alert alert = SimpleAlert.showInfo("Zapis do pliku", "Trwa zapisywanie danych do pliku" + System.lineSeparator() + "Może to potrwać parę chwil!");
                 try {
                     ExportToWord word = ExportToWord.of(listOfUsers, calendarManager);
                     word.exportDataToFile(fileToSave.toPath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
                     alert.close();
+                    SimpleAlert.showInfo("Zapis do pliku", "Zapisano listę!");
+                } catch (IOException e) {
+                    alert.close();
+                    e.printStackTrace();
                 }
             }
         }
@@ -139,7 +139,7 @@ public class UsersTableController {
             groupColumn.setCellValueFactory(groupNameProperty);
             saveColumn.setCellValueFactory(saveUserListProperty);
             moveItemColumn.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
-            moveItemColumn.setCellFactory(initializeMoveIntemFactory());
+            moveItemColumn.setCellFactory(initializeMoveItemFactory());
 
             saveColumn.setSortable(false);
             moveItemColumn.setSortable(false);
@@ -169,7 +169,7 @@ public class UsersTableController {
             });
         }
 
-        private Callback<TableColumn<User, String>, TableCell<User, String>> initializeMoveIntemFactory() {
+        private Callback<TableColumn<User, String>, TableCell<User, String>> initializeMoveItemFactory() {
             return new Callback<TableColumn<User, String>, TableCell<User, String>>() {
                 @Override
                 public TableCell call(final TableColumn<User, String> param) {

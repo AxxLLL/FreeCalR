@@ -109,7 +109,7 @@ public class CalendarController {
         }
 
         private void initializeYearSpinner() {
-            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2018, 2100, StartFX.getCalendarManager().getYear());
+            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2018, 2099, StartFX.getCalendarManager().getYear());
             yearSpinner.setValueFactory(valueFactory);
             yearSpinner.valueProperty().addListener((a) -> dateChanged());
         }

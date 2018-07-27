@@ -7,19 +7,24 @@ import java.util.regex.Pattern;
 public class FreeDay {
     private int day;
     private String name;
+    private boolean isMovable;
     private static final Pattern dayNamePattern = Pattern.compile("^[\\wóęąśłńćźż '-]{1,32}$");
 
 
     public static FreeDay of(int day) throws IllegalArgumentException {
         Preconditions.checkArgument(day > 0 && day <= 31, "Dzień musi być większy od 0 i mniejszy lub równy 31.");
-        return FreeDay.of(day, "None");
+        return FreeDay.of(day, "None", false);
     }
 
     public static FreeDay of(int day, String name) throws IllegalArgumentException {
+         return FreeDay.of(day, name, false);
+    }
+
+    public static FreeDay of(int day, String name, boolean isMovable) throws IllegalArgumentException {
         Preconditions.checkNotNull(name, "Parametr nazwy dnia nie może być null'em. Jeśli nie chcesz używać nazwy, zastosuj przeciążoną metodę 'of(int day)'.");
         Preconditions.checkArgument(!name.isEmpty(), "Nazwa dnia wolnego nie może być pusta. Jeśli nie chcesz używać nazwy, zastosuj przeciążoną metodę 'of(int day)'.");
         Preconditions.checkArgument(dayNamePattern.matcher((name = name.trim()).toLowerCase()).matches(), "Nazwa dnia wolnego może się składać się wyłącznie z liter, cyfr i znaku apostrofu.");
-        return new FreeDay(day, name);
+        return new FreeDay(day, name, isMovable);
     }
 
     public int getDay() {
@@ -32,6 +37,10 @@ public class FreeDay {
 
     public FreeDay getCopy() {
         return FreeDay.of(day, name);
+    }
+
+    public boolean isMovable() {
+        return isMovable;
     }
 
     @Override
@@ -53,9 +62,10 @@ public class FreeDay {
         return "Day: " + day + " | Name: " + name;
     }
 
-    private FreeDay(int day, String name) {
+    private FreeDay(int day, String name, boolean isMovable) {
         this.day = day;
         this.name = name;
+        this.isMovable = isMovable;
     }
 
 }

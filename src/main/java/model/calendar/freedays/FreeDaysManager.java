@@ -23,7 +23,7 @@ public class FreeDaysManager {
     public boolean add(Month month, FreeDay day) {
         Preconditions.checkNotNull(day, "Parametr dnia nie może być null'em.");
         Preconditions.checkNotNull(month, "Parametr miesiąca nie może być null'em.");
-        Preconditions.checkArgument(day.getDay() <= maxDaysInMonth[month.ordinal()], "Wartość dnia nie może przekraczać maksymalnej liczby dni w wybranym miesiącu.");
+        Preconditions.checkArgument(day.getDay() <= maxDaysInMonth[month.ordinal()], "Wartość dnia nie może przekraczać maksymalnej liczby dni w wybranym miesiącu (" + day.getDay() + " <= " + maxDaysInMonth[month.ordinal()] + ")");
 
         List<FreeDay> listOfFreeDaysInMonth = mapOfFreeDays.get(month);
         if(!listOfFreeDaysInMonth.contains(day)) {
