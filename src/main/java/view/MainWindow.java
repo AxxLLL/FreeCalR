@@ -20,12 +20,13 @@ public class MainWindow {
     private MainWindow(Stage primaryStage) {
         Preconditions.checkNotNull(primaryStage, "Parametry startowe okna programu muszą być określone");
         try {
-            mainWindowScene = new Scene(FXMLUtils.loadFXML(FXMLPath.MAIN_WINDOW));
+            mainWindowScene = new Scene(FXMLUtils.loadFXML(FXMLPath.MAIN_WINDOW), 840, 427);
             primaryStage.setScene(mainWindowScene);
-            primaryStage.initStyle(StageStyle.UNIFIED);
+
             primaryStage.setResizable(false);
             primaryStage.setTitle(ProgramInfo.PROGRAM_NAME + " (" + ProgramInfo.VERSION + ")");
             primaryStage.show();
+
         } catch (IOException e) {
             System.out.println("Błąd: Wystąpił błąd przy próbie uruchomienia programu!");
             e.printStackTrace();

@@ -19,9 +19,9 @@
                <content>
                   <TableView fx:id="dataTable" prefHeight="299.0" prefWidth="373.0">
                     <columns>
-                      <TableColumn fx:id="nameColumn" prefWidth="131.0" text="Imię i nazwisko" />
-                      <TableColumn fx:id="groupColumn" minWidth="9.0" prefWidth="96.0" text="Dział" />
-                        <TableColumn fx:id="saveColumn" prefWidth="66.0" text="Zapisz">
+                      <TableColumn fx:id="nameColumn" prefWidth="116.0" text="Imię i nazwisko" />
+                      <TableColumn fx:id="groupColumn" minWidth="9.0" prefWidth="91.0" text="Dział" />
+                        <TableColumn fx:id="saveColumn" prefWidth="74.0" text="Zapisz">
                            <graphic>
                               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#selectAllGroupsButton" prefHeight="22.0" prefWidth="19.0" style="-fx-pref-width: 15; -fx-pref-height: 15;" text="x">
                                  <opaqueInsets>
@@ -32,7 +32,7 @@
                                  </font>
                               </Button>
                            </graphic></TableColumn>
-                        <TableColumn fx:id="moveItemColumn" prefWidth="79.0" text="Przesuń" />
+                        <TableColumn fx:id="moveItemColumn" prefWidth="91.0" text="Przesuń" />
                     </columns>
                   </TableView>
                </content>
@@ -42,17 +42,17 @@
             </ScrollPane>
             <ToolBar prefHeight="75.0" prefWidth="400.0" style="-fx-background-color: null;">
               <items>
-                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed" prefHeight="49.0" prefWidth="102.0" text="Zapisz listę">
+                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed" prefHeight="49.0" prefWidth="115.0" text="Zapisz listę">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="usersButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#usersButtonPressed" prefHeight="49.0" prefWidth="102.0" text="Użytkownicy">
+                  <Button fx:id="usersButton" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#usersButtonPressed" prefHeight="49.0" prefWidth="115.0" text="Użytkownicy">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="groupsButton" layoutX="116.0" layoutY="13.0" mnemonicParsing="false" onAction="#groupsButtonPressed" prefHeight="49.0" prefWidth="102.0" text="Działy">
+                  <Button fx:id="groupsButton" layoutX="116.0" layoutY="13.0" mnemonicParsing="false" onAction="#groupsButtonPressed" prefHeight="49.0" prefWidth="115.0" text="Działy">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

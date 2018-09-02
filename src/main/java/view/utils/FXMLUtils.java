@@ -19,7 +19,7 @@ public class FXMLUtils {
 
     public static Stage loadFXMLAsModal(Window owner, FXMLPath window, String title) throws IOException {
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNIFIED);
+        stage.initStyle(StageStyle.UTILITY);
         stage.initOwner(owner);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(new Scene(loadFXML(window)));
