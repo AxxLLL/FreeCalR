@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class UsersTableContextMenu {
     private ContextMenu contextMenu;
     private MenuItem editUserDataItem = new MenuItem("Edytuj dane użytkownika");
-    private MenuItem printListItem = new MenuItem("Drukuj listę");
+    private MenuItem printListItem = new MenuItem("Zapisz listę użytkownika");
     private MenuItem selectGroupItem = new MenuItem("Zaznacz grupę na liście");
     private MenuItem unselectGroupItem = new MenuItem("Odznacz grupę na liście");
     private MenuItem selectAllGroupItem = new MenuItem("Zaznacz tylko tę grupę na liście");
