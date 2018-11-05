@@ -24,6 +24,9 @@ import view.utils.SimpleAlert;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class UsersTableController {
@@ -96,7 +99,7 @@ public class UsersTableController {
     private File showSelectFileWindow(CalendarManager calendarManager, String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Word 2007", "*.docx"));
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
+        fileChooser.setInitialDirectory(findUserSaveFileDir());
         fileChooser.setTitle("Wybierz plik do zapisu listy");
         if(title == null) fileChooser.setInitialFileName(String.format("%s %d.docx", StartFX.monthName.getName(calendarManager.getMonth()), calendarManager.getYear()));
         else fileChooser.setInitialFileName(String.format("%s - %s %d.docx", title, StartFX.monthName.getName(calendarManager.getMonth()), calendarManager.getYear()));
@@ -122,6 +125,13 @@ public class UsersTableController {
                 }
             }
         }
+    }
+
+    private File findUserSaveFileDir() {
+        String home = System.getProperty("user.home");
+        if(Files.exists(Paths.get(home, "/Pulpit"))) return Paths.get(home, "/Pulpit").toFile();
+        else if(Files.exists(Paths.get(home, "/Desktop"))) return Paths.get(home, "/Desktop").toFile();
+        else return new File(home);
     }
 
     private class Initializer {

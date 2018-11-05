@@ -4,9 +4,6 @@ import com.google.common.base.Preconditions;
 import init.StartFX;
 import model.calendar.CalendarManager;
 import model.community.users.User;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.xwpf.converter.pdf.PdfConverter;
-import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
