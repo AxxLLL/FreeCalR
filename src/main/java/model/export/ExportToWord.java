@@ -160,15 +160,18 @@ public class ExportToWord implements Export {
             contentTablesMinorHeaders.getRow(0).getCell(1).removeParagraph(0);
             contentTablesMinorHeaders.getRow(0).getCell(2).removeParagraph(0);
             contentTablesMinorHeaders.getRow(0).getCell(6).removeParagraph(0);
+            contentTablesMinorHeaders.getRow(0).getCell(5).removeParagraph(0);
             contentTablesMinorHeaders.getRow(0).getCell(7).removeParagraph(0);
 
             XWPFParagraph tableHeader_StartWork = setFastCellPararagraph(contentTablesMinorHeaders.getRow(0).getCell(1), ParagraphAlignment.CENTER, 1.15, 0);
             XWPFParagraph tableHeader_EndWork = setFastCellPararagraph(contentTablesMinorHeaders.getRow(0).getCell(2), ParagraphAlignment.CENTER, 1.15, 0);
+            XWPFParagraph tableHeader_WorkHousDetails = setFastCellPararagraph(contentTablesMinorHeaders.getRow(0).getCell(5), ParagraphAlignment.CENTER, 1.15, 0);
             XWPFParagraph tableHeader_ExitHour = setFastCellPararagraph(contentTablesMinorHeaders.getRow(0).getCell(6), ParagraphAlignment.CENTER, 1.15, 0);
             XWPFParagraph tableHeader_BackHour = setFastCellPararagraph(contentTablesMinorHeaders.getRow(0).getCell(7), ParagraphAlignment.CENTER, 1.15, 0);
 
             setFastRun(tableHeader_StartWork, "Times New Roman", 8, false, "000000", "Rozpoczęcie");
             setFastRun(tableHeader_EndWork, "Times New Roman", 8, false, "000000", "Zakończenie");
+            setFastRun(tableHeader_WorkHousDetails, "Times New Roman", 8, false, "000000", "Ilość godzin");
             setFastRun(tableHeader_ExitHour, "Times New Roman", 8, false, "000000", "Godz. wyjścia");
             setFastRun(tableHeader_BackHour, "Times New Roman", 8, false, "000000", "Godz. przyjścia");
 
